@@ -7,7 +7,9 @@ class Settings(BaseSettings):
 settings = Settings()
 DATABASE_URL = settings.DATABASE_URL
 
-if DATABASE_URL.startswith("postgresql+psycopg2"):
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+elif DATABASE_URL.startswith("postgresql+psycopg2"):
     DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg2", "postgresql+asyncpg", 1)
 
 # Configure SQLAlchemy 2.0 async engine
