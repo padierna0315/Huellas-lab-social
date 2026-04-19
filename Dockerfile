@@ -9,6 +9,7 @@ ENV PYTHONPATH=/app
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -e .
 
 # Copy the rest of the application
 COPY . .
@@ -16,4 +17,4 @@ COPY . .
 # Expose ports for FastAPI
 EXPOSE 8080
 
-CMD ["sh", "-c", "uvicorn src.lims_vet.main:app --host 0.0.0.0 --port $PORT"]
+CMD ["sh", "-c", "uvicorn lims_vet.main:app --host 0.0.0.0 --port $PORT"]
