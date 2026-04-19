@@ -1,8 +1,12 @@
-import os
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from pydantic_settings import BaseSettings
 
-# Use Supabase/PgBouncer connection string
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://user:password@localhost/dbname")
+class Settings(BaseSettings):
+    DATABASE_URL: str
+
+settings = Settings()
+DATABASE_URL = settings.DATABASE_URL
+
 if DATABASE_URL.startswith("postgresql+psycopg2"):
     DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg2", "postgresql+asyncpg", 1)
 

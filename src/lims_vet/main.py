@@ -2,16 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from .core.database import engine, Base
+from .core.database import engine
 from .api.v1.reports import router as reports_router
 from .api.v1.samples import router as samples_router
 from .api.ws import router as ws_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Setup database on startup
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
     yield
     # Cleanup on shutdown
     await engine.dispose()
