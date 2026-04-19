@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 
 # Use Supabase/PgBouncer connection string
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://user:password@localhost/dbname")
+if DATABASE_URL.startswith("postgresql+psycopg2"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg2", "postgresql+asyncpg", 1)
 
 # Configure SQLAlchemy 2.0 async engine
 # For PgBouncer in transaction mode, pool_size should be tuned.
