@@ -6,13 +6,10 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH=/app
 
-# Install dependencies
-COPY requirements.txt .
+# Copy application and install dependencies
+COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install -e .
-
-# Copy the rest of the application
-COPY . .
 
 # Expose ports for FastAPI
 EXPOSE 8080
