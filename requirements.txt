@@ -5,3 +5,5 @@ flet
 asyncpg
 pydantic
 pydantic-settings
+python-multipart
+pypdf
